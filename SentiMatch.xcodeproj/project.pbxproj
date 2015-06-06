@@ -10,11 +10,11 @@
 		353BAC72EECB3DE5DEBA5631 /* libPods-SentiMatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8793BB96CB77A60F4F8B2748 /* libPods-SentiMatch.a */; };
 		B82CC25F1B236A9D00943E26 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC25E1B236A9D00943E26 /* main.m */; };
 		B82CC2621B236A9D00943E26 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2611B236A9D00943E26 /* AppDelegate.m */; };
-		B82CC2651B236A9D00943E26 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2641B236A9D00943E26 /* ViewController.m */; };
 		B82CC2681B236A9D00943E26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B82CC2661B236A9D00943E26 /* Main.storyboard */; };
 		B82CC26A1B236A9D00943E26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B82CC2691B236A9D00943E26 /* Images.xcassets */; };
 		B82CC26D1B236A9D00943E26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B82CC26B1B236A9D00943E26 /* LaunchScreen.xib */; };
 		B82CC2791B236A9D00943E26 /* SentiMatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2781B236A9D00943E26 /* SentiMatchTests.m */; };
+		B82CC2901B23A4A100943E26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82CC28F1B23A4A100943E26 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,14 +36,14 @@
 		B82CC25E1B236A9D00943E26 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B82CC2601B236A9D00943E26 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B82CC2611B236A9D00943E26 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B82CC2631B236A9D00943E26 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		B82CC2641B236A9D00943E26 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B82CC2671B236A9D00943E26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B82CC2691B236A9D00943E26 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B82CC26C1B236A9D00943E26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B82CC2721B236A9D00943E26 /* SentiMatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SentiMatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B82CC2771B236A9D00943E26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B82CC2781B236A9D00943E26 /* SentiMatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentiMatchTests.m; sourceTree = "<group>"; };
+		B82CC28E1B23A46400943E26 /* SentiMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SentiMatch-Bridging-Header.h"; sourceTree = "<group>"; };
+		B82CC28F1B23A4A100943E26 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,12 +107,12 @@
 			children = (
 				B82CC2601B236A9D00943E26 /* AppDelegate.h */,
 				B82CC2611B236A9D00943E26 /* AppDelegate.m */,
-				B82CC2631B236A9D00943E26 /* ViewController.h */,
-				B82CC2641B236A9D00943E26 /* ViewController.m */,
 				B82CC2661B236A9D00943E26 /* Main.storyboard */,
+				B82CC28F1B23A4A100943E26 /* ViewController.swift */,
 				B82CC2691B236A9D00943E26 /* Images.xcassets */,
 				B82CC26B1B236A9D00943E26 /* LaunchScreen.xib */,
 				B82CC25C1B236A9D00943E26 /* Supporting Files */,
+				B82CC28E1B23A46400943E26 /* SentiMatch-Bridging-Header.h */,
 			);
 			path = SentiMatch;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B82CC2651B236A9D00943E26 /* ViewController.m in Sources */,
+				B82CC2901B23A4A100943E26 /* ViewController.swift in Sources */,
 				B82CC2621B236A9D00943E26 /* AppDelegate.m in Sources */,
 				B82CC25F1B236A9D00943E26 /* main.m in Sources */,
 			);
@@ -406,9 +406,12 @@
 			baseConfigurationReference = 5073062C124901B83A87CEB6 /* Pods-SentiMatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SentiMatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SentiMatch/SentiMatch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -417,9 +420,11 @@
 			baseConfigurationReference = 1060B62CD9B7587246C5EADB /* Pods-SentiMatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SentiMatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SentiMatch/SentiMatch-Bridging-Header.h";
 			};
 			name = Release;
 		};
