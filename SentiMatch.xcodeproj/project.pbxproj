@@ -15,6 +15,10 @@
 		B82CC26D1B236A9D00943E26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B82CC26B1B236A9D00943E26 /* LaunchScreen.xib */; };
 		B82CC2791B236A9D00943E26 /* SentiMatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2781B236A9D00943E26 /* SentiMatchTests.m */; };
 		B82CC2901B23A4A100943E26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82CC28F1B23A4A100943E26 /* ViewController.swift */; };
+		E5B0C48A1B23A59D00158C10 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4861B23A59D00158C10 /* Fabric.framework */; };
+		E5B0C48B1B23A59D00158C10 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4871B23A59D00158C10 /* TwitterKit.framework */; };
+		E5B0C48C1B23A59D00158C10 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */; };
+		E5B0C48D1B23A59D00158C10 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4891B23A59D00158C10 /* TwitterCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		B82CC2781B236A9D00943E26 /* SentiMatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentiMatchTests.m; sourceTree = "<group>"; };
 		B82CC28E1B23A46400943E26 /* SentiMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SentiMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		B82CC28F1B23A4A100943E26 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E5B0C4861B23A59D00158C10 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		E5B0C4871B23A59D00158C10 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
+		E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
+		E5B0C4891B23A59D00158C10 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +60,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				353BAC72EECB3DE5DEBA5631 /* libPods-SentiMatch.a in Frameworks */,
+				E5B0C48D1B23A59D00158C10 /* TwitterCore.framework in Frameworks */,
+				E5B0C48A1B23A59D00158C10 /* Fabric.framework in Frameworks */,
+				E5B0C48B1B23A59D00158C10 /* TwitterKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +116,10 @@
 		B82CC25B1B236A9D00943E26 /* SentiMatch */ = {
 			isa = PBXGroup;
 			children = (
+				E5B0C4861B23A59D00158C10 /* Fabric.framework */,
+				E5B0C4871B23A59D00158C10 /* TwitterKit.framework */,
+				E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */,
+				E5B0C4891B23A59D00158C10 /* TwitterCore.framework */,
 				B82CC2601B236A9D00943E26 /* AppDelegate.h */,
 				B82CC2611B236A9D00943E26 /* AppDelegate.m */,
 				B82CC2661B236A9D00943E26 /* Main.storyboard */,
@@ -155,6 +170,7 @@
 				B82CC2561B236A9D00943E26 /* Frameworks */,
 				B82CC2571B236A9D00943E26 /* Resources */,
 				56E11A6512CE308B85A62845 /* Copy Pods Resources */,
+				E5B0C4851B23A55700158C10 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -224,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5B0C48C1B23A59D00158C10 /* TwitterKitResources.bundle in Resources */,
 				B82CC2681B236A9D00943E26 /* Main.storyboard in Resources */,
 				B82CC26D1B236A9D00943E26 /* LaunchScreen.xib in Resources */,
 				B82CC26A1B236A9D00943E26 /* Images.xcassets in Resources */,
@@ -269,6 +286,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		E5B0C4851B23A55700158C10 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 6273f86bbe6d3455a645add6295bd41019bd6c37 ba60bfcd4a6ce452f7192ce504f2b658f8c5ffc06135c447388d021666b11188";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -407,6 +437,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SentiMatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -421,6 +455,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SentiMatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
