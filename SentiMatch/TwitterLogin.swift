@@ -9,7 +9,7 @@
 import UIKit
 import TwitterKit
 
-class ViewController: UIViewController {
+class TwitterLogin: UIViewController {
     
     var sessionStr = ""
     

@@ -15,7 +15,6 @@ static NSString * const baselink = @"https://gateway.watsonplatform.net/personal
 
 @implementation IJMPersonalityAPI
 
-// Returns YES if phone number exists on database, otherwise NO
 + (void)getPersonalityAssessmentWithText:(NSString *)text
                    withCompletionHandler:(void (^)(NSDictionary *response))completionHandler
 {

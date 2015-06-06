@@ -10,7 +10,6 @@
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
 
-
 @interface AppDelegate ()
 
 @end
