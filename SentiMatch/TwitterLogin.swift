@@ -10,11 +10,30 @@ import UIKit
 import TwitterKit
 
 class TwitterLogin: UIViewController {
+
+    
     
     var sessionStr = ""
+
+    func buttonAction(sender:UIButton!)
+    {
+        getUserTweets(sessionStr, completion: { (result) -> Void in
+            println(result)
+        })
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            let button   = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+            button.frame = CGRectMake(100, 100, 100, 50)
+            button.backgroundColor = UIColor.greenColor()
+            button.setTitle("Test Button", forState: UIControlState.Normal)
+            button.addTarget(self, action: "buttonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+            
+            self.view.addSubview(button)
+
+        
         // Do any additional setup after loading the view, typically from a nib.
         let logInButton = TWTRLogInButton(logInCompletion: {
             (session: TWTRSession!, error: NSError!) in
@@ -35,6 +54,7 @@ class TwitterLogin: UIViewController {
                     println("error: \(error.localizedDescription)");
                 }
             }
+            
         })
         logInButton.center = self.view.center
         self.view.addSubview(logInButton)
@@ -74,27 +94,112 @@ class TwitterLogin: UIViewController {
             })
         }
     }
+
+    func getUserTweets(user_id : String, completion: (result: AnyObject?) -> Void)
+    {
+        // Swift
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+        let params = ["user_id": user_id]
+        var clientError : NSError?
+        
+        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpoint, parameters: params,error: &clientError)
+        
+        if request != nil
+        {
+            Twitter.sharedInstance().APIClient.sendTwitterRequest(request) {
+                (response, data, connectionError) -> Void in
+                if (connectionError == nil) {
+                    var jsonError : NSError?
+                    let json : AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &jsonError)
+                    completion(result: json)
+                }
+                else {
+                    println("Error: \(connectionError)")
+                    
+                }
+            }
+        }
+        else {
+            println("Error: \(clientError)")
+        }
+        
+        
+    }
     
     @IBAction func secondButtonPressed(sender: AnyObject)
     {
+        
         // Swift
-        let tweetIDs = ["20", "510908133917487104"]
-        Twitter.sharedInstance().APIClient.loadTweetsWithIDs(tweetIDs) {
-            (tweets, error) -> Void in
-            if (error == nil)
-            {
-                println(tweets)
-            }
-            else
-            {
-                println(error)
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+        let params = ["user_id": sessionStr]
+        var clientError : NSError?
+        
+        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod(
+                "GET", URL: statusesShowEndpoint, parameters: params,
+                error: &clientError)
+        
+        if request != nil {
+            Twitter.sharedInstance().APIClient.sendTwitterRequest(request) {
+                    (response, data, connectionError) -> Void in
+                    if (connectionError == nil) {
+                        var jsonError : NSError?
+                        let json : AnyObject? =
+                        NSJSONSerialization.JSONObjectWithData(data,
+                            options: nil,
+                            error: &jsonError)
+                        println(json)
+                    }
+                    else {
+                        println("Error: \(connectionError)")
+                    }
             }
         }
+        else {
+            println("Error: \(clientError)")
+        }
+        
+        /*// Swift
+        let statusesShowEndpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+        let params = []
+        var clientError : NSError?
+        
+        let urlRequest = NSURLRequest(URL: NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json?user_id=\(sessionStr)")!)
+        
+        let myRequest = Twitter.sharedInstance().APIClient.sendTwitterRequest(urlRequest, completion: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
+                if(error == nil)
+                {
+                    println(data)
+                }
+                else
+                {
+                    println(error)
+                }
+        })
+        
+        let request = Twitter.sharedInstance().APIClient.URLRequestWithMethod("GET", URL: statusesShowEndpoint, parameters: params, error: &clientError)
+        
+        if request != nil {
+            Twitter.sharedInstance().APIClient.sendTwitterRequest(request) {
+                    (response, data, connectionError) -> Void in
+                    if (connectionError == nil) {
+                        var jsonError : NSError?
+                        let json : AnyObject? =
+                        NSJSONSerialization.JSONObjectWithData(data,
+                            options: nil,
+                            error: &jsonError)
+                        println(json)
+                    }
+                    else {
+                        println("Error: \(connectionError)")
+                    }
+            }
+        }
+        else {
+            println("Error: \(clientError)")
+        }*/
+        
     }
-    
-    
-    
-    
+
     
 }
 
