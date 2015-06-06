@@ -15,6 +15,7 @@
 		B82CC26D1B236A9D00943E26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B82CC26B1B236A9D00943E26 /* LaunchScreen.xib */; };
 		B82CC2791B236A9D00943E26 /* SentiMatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2781B236A9D00943E26 /* SentiMatchTests.m */; };
 		B82CC2901B23A4A100943E26 /* TwitterLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */; };
+		B8AE52221B23B6240086B55C /* FoursquareVenues.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AE52211B23B6240086B55C /* FoursquareVenues.m */; };
 		BDCCA4031B23A7A700B690DC /* IJMPersonalityAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */; };
 		E5B0C48A1B23A59D00158C10 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4861B23A59D00158C10 /* Fabric.framework */; };
 		E5B0C48B1B23A59D00158C10 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4871B23A59D00158C10 /* TwitterKit.framework */; };
@@ -49,6 +50,8 @@
 		B82CC2781B236A9D00943E26 /* SentiMatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentiMatchTests.m; sourceTree = "<group>"; };
 		B82CC28E1B23A46400943E26 /* SentiMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SentiMatch-Bridging-Header.h"; sourceTree = "<group>"; };
 		B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterLogin.swift; sourceTree = "<group>"; };
+		B8AE52201B23B6240086B55C /* FoursquareVenues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareVenues.h; sourceTree = "<group>"; };
+		B8AE52211B23B6240086B55C /* FoursquareVenues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareVenues.m; sourceTree = "<group>"; };
 		BDCCA4011B23A7A700B690DC /* IJMPersonalityAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJMPersonalityAPI.h; sourceTree = "<group>"; };
 		BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJMPersonalityAPI.m; sourceTree = "<group>"; };
 		E5B0C4861B23A59D00158C10 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
@@ -124,6 +127,8 @@
 				B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */,
 				BDCCA4011B23A7A700B690DC /* IJMPersonalityAPI.h */,
 				BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */,
+				B8AE52201B23B6240086B55C /* FoursquareVenues.h */,
+				B8AE52211B23B6240086B55C /* FoursquareVenues.m */,
 				B82CC2691B236A9D00943E26 /* Images.xcassets */,
 				B8AE521F1B23B1340086B55C /* Interface Files */,
 				B82CC25C1B236A9D00943E26 /* Supporting Files */,
@@ -329,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B82CC2901B23A4A100943E26 /* TwitterLogin.swift in Sources */,
+				B8AE52221B23B6240086B55C /* FoursquareVenues.m in Sources */,
 				B82CC2621B236A9D00943E26 /* AppDelegate.m in Sources */,
 				BDCCA4031B23A7A700B690DC /* IJMPersonalityAPI.m in Sources */,
 				B82CC25F1B236A9D00943E26 /* main.m in Sources */,

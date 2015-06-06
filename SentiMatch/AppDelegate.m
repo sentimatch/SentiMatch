@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <TwitterKit/TwitterKit.h>
+#import <Foursquare-API-v2/Foursquare2.h>
+
+#import "FoursquareVenues.h"
 
 @interface AppDelegate ()
 
@@ -18,9 +21,20 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    // Twitter
     [Fabric with:@[TwitterKit]];
+    
+    // Foursquare
+    [Foursquare2 setupFoursquareWithClientId:@"0EDECLHLEAYCNZ40ECWCXVCSVMVVP1N1URHF1KYODAZXUNWK"
+                                      secret:@"5G4WODG2PDX4RYXYDREFM30OWDGRSITKTHIDISSPB1NIZJS0"
+                                 callbackURL:@"sentimatch://foursquare"];
+    
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [Foursquare2 handleURL:url];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

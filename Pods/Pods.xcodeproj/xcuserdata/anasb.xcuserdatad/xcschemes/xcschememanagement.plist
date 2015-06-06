@@ -9,6 +9,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SentiMatch-Foursquare-API-v2.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-SentiMatch-SSKeychain.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SentiMatch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>289F2E84022D3B0626CFA0DD</key>
+		<key>046E3E33A77C32EAA891D359</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A380FE27B908C3DD8AEAC81D</key>
+		<key>3AA579D55BCFE71BCE7FCA5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>811AFC84AA917CFC0C036519</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F39F5D00AE969119DA4CBD55</key>
 		<dict>
 			<key>primary</key>
 			<true/>

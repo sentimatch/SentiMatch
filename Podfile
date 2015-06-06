@@ -3,6 +3,8 @@
 
 target 'SentiMatch' do
 	pod 'AFNetworking', '2.5.4'
+	pod 'Foursquare-API-v2', '1.4.8'
+	pod 'SSKeychain', '1.2'
 end
 
 target 'SentiMatchTests' do
