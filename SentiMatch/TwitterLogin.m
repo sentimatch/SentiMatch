@@ -12,6 +12,7 @@
 #import <SSKeychain/SSKeychain.h>
 #import "IJMPersonalityAPI.h"
 #import "SMBackEndAPI.h"
+#import "FoursquareVenues.h"
 
 @interface TwitterLogin()
 
@@ -70,6 +71,12 @@
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    // Uncomment this to present the foursquare venues
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
+//    [self presentViewController:nav animated:YES completion:nil];
+}
 
 
 

@@ -18,4 +18,6 @@
 + (void)postVenueID:(NSString *)venueID
 withCompletionHandler:(void (^)(BOOL successful))completionHandler;
 
++ (void)checkVenueID:(NSString *)venueID withCompletionHandler:(void (^)(BOOL successful, id result))completionHandler;
+
 @end

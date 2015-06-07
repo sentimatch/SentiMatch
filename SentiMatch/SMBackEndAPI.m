@@ -8,6 +8,7 @@
 
 #import "SMBackEndAPI.h"
 #import <AFNetworking/AFNetworking.h>
+#import <SSKeychain/SSKeychain.h>
 
 static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
 
@@ -52,7 +53,8 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@locations/checkin", baselink]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    NSDictionary *body = @{@"venue_id" : venueID};
+    NSDictionary *body = @{@"location_id" : venueID,
+                           @"token" : [SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]};
     [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:body options:0 error:nil]];
     
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -65,5 +67,20 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
     }];
     [op start];
 }
+
++ (void)checkVenueID:(NSString *)venueID
+withCompletionHandler:(void (^)(BOOL successful, id result))completionHandler
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    NSDictionary *body = @{@"location_id" : venueID,
+                        @"token" : [SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]};
+    [manager GET:[NSString stringWithFormat:@"%@locations/checkedin_users", baselink] parameters:body success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            completionHandler(YES, responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completionHandler(NO, error);
+    }];
+}
+
 
 @end

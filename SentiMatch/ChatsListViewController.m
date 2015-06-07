@@ -7,8 +7,11 @@
 //
 
 #import "ChatsListViewController.h"
+#import "SMBackEndAPI.h"
 
 @interface ChatsListViewController ()
+
+@property (strong, nonatomic) NSMutableArray *users;
 
 @end
 
@@ -17,9 +20,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.users = [[NSMutableArray alloc] init];
+    
     // Check out from venue
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Leave" style:UIBarButtonItemStyleDone target:self action:@selector(checkoutFromVenue)];
     self.navigationItem.rightBarButtonItem = item;
+    
+    [SMBackEndAPI checkVenueID:[self.venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id result) {
+        self.users = result;
+        [self.tableView reloadData];
+        
+        // Poll the backend every 60 seconds
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
+        [timer fire];
+    }];
+}
+
+- (void)checkVenueAgain
+{
+    [SMBackEndAPI checkVenueID:[self.venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id result) {
+        self.users = result;
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)checkoutFromVenue
@@ -34,7 +56,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.users.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30.f;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -44,12 +71,13 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"threadCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"threadCell"];
     }
 
-    cell.textLabel.text = [NSString stringWithFormat:@"Random person #%ld", (long)indexPath.row];
+    NSDictionary *user = [self.users objectAtIndex:indexPath.row];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", [user objectForKey:@"name"]];
     
     return cell;
 }
