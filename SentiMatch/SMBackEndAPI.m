@@ -29,7 +29,7 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
     }
     [dict setObject:[NSString stringWithFormat:@"%@@email.com", userID] forKey:@"email"];
     [dict setObject:name forKey:@"name"];
-    [dict setObject:@"suckMYfuckingDICK" forKey:@"password"];
+    [dict setObject:@"passwordWORDPASS" forKey:@"password"];
     
     NSDictionary *body = [NSDictionary dictionaryWithDictionary:dict];
     [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:body options:0 error:nil]];

@@ -14,6 +14,7 @@
 @interface ChatsListViewController ()
 
 @property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSArray *userIDs;
 @property (strong, nonatomic) NSString *userID;
 @property (nonatomic) CGFloat sum;
 @property (nonatomic) BOOL check;
@@ -43,6 +44,7 @@
 {
     [SMBackEndAPI checkVenueID:[self.venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id result) {
         NSMutableDictionary *relativePersonalities = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *relativePersonalitiesUserID = [[NSMutableDictionary alloc] init];
         for (NSDictionary *person in result) {
             NSString *temp = person[@"email"];
             NSRange range = [temp rangeOfString:@"@"];
@@ -51,11 +53,15 @@
                 CGFloat currentSum = [person[@"person_sum"] floatValue];
                 CGFloat relativeSum = fabsf(currentSum - self.sum);
                 [relativePersonalities setObject:@(relativeSum) forKey:person[@"name"]];
+                [relativePersonalitiesUserID setObject:@(relativeSum) forKey:currentID];
             }
         }
         
         NSArray *sorted = [[relativePersonalities allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            return [[relativePersonalities objectForKey:obj2] compare:[relativePersonalities objectForKey:obj1]];
+            return [[relativePersonalities objectForKey:obj1] compare:[relativePersonalities objectForKey:obj2]];
+        }];
+        NSArray *sorted2 = [[relativePersonalitiesUserID allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [[relativePersonalitiesUserID objectForKey:obj1] compare:[relativePersonalitiesUserID objectForKey:obj2]];
         }];
         
         for (NSString *key in sorted) {
@@ -63,6 +69,7 @@
         }
         
         self.users = sorted;
+        self.userIDs = sorted2;
         [self.tableView reloadData];
         if (!self.check) {
             self.check = YES;
@@ -120,7 +127,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *selectedUser = self.users[indexPath.row];
+    NSString *selectedUser = self.userIDs[indexPath.row];
     SMChatViewController *chatVC = [[SMChatViewController alloc] initWithOtherName:selectedUser];
     [self.navigationController pushViewController:chatVC animated:YES];
 }

@@ -18,11 +18,16 @@ static NSString * const baselink = @"https://gateway.watsonplatform.net/personal
 + (void)getPersonalityAssessmentWithText:(NSString *)text
                    withCompletionHandler:(void (^)(NSDictionary *response))completionHandler
 {
+    NSMutableString *string = [[NSMutableString alloc] initWithString:text];
+    while ([self wordCount:string] <= 100) {
+        [string appendString:text];
+    }
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", baselink]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"text/plain" forHTTPHeaderField:@"Content-Type"];
     // Body
-    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:data];
     // Credentials
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -34,6 +39,20 @@ static NSString * const baselink = @"https://gateway.watsonplatform.net/personal
         NSLog(@"Error: %@", [error localizedDescription]);
     }];
     [op start];
+}
+
++ (NSUInteger)wordCount:(NSString *)str
+{
+    NSUInteger words = 0;
+    
+    NSScanner *scanner = [NSScanner scannerWithString: str];
+    
+    // Look for spaces, tabs and newlines
+    NSCharacterSet *whiteSpace = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    while ([scanner scanUpToCharactersFromSet:whiteSpace  intoString:nil])
+        words++;
+    
+    return words;
 }
 
 + (NSDictionary *)personalityWithJSON:(NSDictionary *)json
