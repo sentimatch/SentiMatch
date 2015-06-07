@@ -61,6 +61,7 @@
     [self.tableView setHidden:YES];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
     [self.view addSubview:self.tableView];
     
     // Get user's location
@@ -178,6 +179,8 @@
                                   }];
 }
 
+#pragma mark - Pins
+
 - (void)addVenuePins
 {
     for (NSDictionary *venue in self.venues) {
@@ -221,16 +224,18 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"venueCell"];
     }
+    cell.contentView.backgroundColor = self.tableView.backgroundColor;
     
     NSDictionary *venue = [self.venues objectAtIndex:indexPath.row];
-    
     cell.textLabel.text = [venue objectForKey:@"name"];
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir-light" size:24.0];
     cell.detailTextLabel.text = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"name"];
-    NSString *imgURL = [NSString stringWithFormat:@"%@bg_32%@", [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"prefix"],
-                        [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"suffix"]];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] placeholderImage:nil options:SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        cell.imageView.image = image;
-    }];
+    
+    NSString *imgURL = [NSString stringWithFormat:@"%@bg_32%@", [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"prefix"], [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"suffix"]];
+    if (!cell.imageView.image) {
+        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:imgURL]];
+        cell.imageView.image = [UIImage imageWithData: imageData];
+    }
     
     return cell;
 }
@@ -264,7 +269,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100.0;
+    return 80.0;
 }
 
 @end
