@@ -16,7 +16,7 @@
   withCompletionHandler:(void (^)(BOOL successful, NSString *UAuthToken))completionHandler;
 
 + (void)postVenueID:(NSString *)venueID
-withCompletionHandler:(void (^)(BOOL successful))completionHandler;
+withCompletionHandler:(void (^)(BOOL successful, id responseObject))completionHandler;
 
 + (void)checkVenueID:(NSString *)venueID withCompletionHandler:(void (^)(BOOL successful, id result))completionHandler;
 

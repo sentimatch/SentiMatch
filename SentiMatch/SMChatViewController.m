@@ -18,6 +18,7 @@
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubble;
 @property (strong, nonatomic) Firebase *rootRef;
 
+
 @end
 
 @implementation SMChatViewController
@@ -38,12 +39,14 @@
     self.messages = [[NSMutableArray alloc] init];
     
     [self.collectionView reloadData];
+    self.collectionView.backgroundColor = [UIColor blackColor];
     self.senderDisplayName = self.userName;
     self.senderId = self.userName;
     
+    // Receiving messages
     [self.rootRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSDictionary *dict = snapshot.value;
-        for (NSString *key in dict) {
+            for (NSString *key in dict) {
             if ([key isEqualToString:self.userName]) {
                 NSString *message = dict[key];
                 JSQMessage *data = [JSQMessage messageWithSenderId:self.otherName displayName:self.otherName text:message];
@@ -52,7 +55,6 @@
             }
         }
     }];
-    
 }
 
 -(id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath

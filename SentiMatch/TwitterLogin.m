@@ -43,7 +43,10 @@
         }
         
         // Handles posting personality and twitter details to backend
-        [self postPersonality];
+        [self postPersonalityWithCompletionHandler:^{
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
+            [self presentViewController:nav animated:YES completion:nil];
+        }];
         
     } else {
          NSLog(@"error: %@", [error localizedDescription]);
@@ -58,15 +61,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    SMChatViewController *chatVC = [[SMChatViewController alloc] init];
-    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:chatVC];
-    [self presentViewController:navCtrl animated:YES completion:nil];
-    // Uncomment this to present the foursquare venues
-    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
-    // [self presentViewController:nav animated:YES completion:nil];
+    
 }
 
-- (void)postPersonality
+- (void)postPersonalityWithCompletionHandler:(void (^)())completionHandler
 {
     [SMTwitterAPI getUserTweetsWithUserID:[SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"] withCompletionHandler:^(NSArray *response) {
         NSString *tweets = [SMTwitterAPI tweetsStringFromJSON:response];
@@ -80,6 +78,7 @@
                 else {
                     NSLog(@"Already registered UAuth token: %@", [SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]);
                 }
+                completionHandler();
             }];
         }];
     }];

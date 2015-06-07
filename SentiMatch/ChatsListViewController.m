@@ -8,10 +8,14 @@
 
 #import "ChatsListViewController.h"
 #import "SMBackEndAPI.h"
+#import <SSKeychain/SSKeychain.h>
 
 @interface ChatsListViewController ()
 
-@property (strong, nonatomic) NSMutableArray *users;
+@property (strong, nonatomic) NSArray *users;
+@property (strong, nonatomic) NSString *userID;
+@property (nonatomic) CGFloat sum;
+@property (nonatomic) BOOL check;
 
 @end
 
@@ -20,29 +24,61 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.users = [[NSMutableArray alloc] init];
+    self.sum = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sum"] floatValue];
+    self.check = NO;
+    self.users = @[];
+    
+    self.userID = [SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"];
     
     // Check out from venue
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Leave" style:UIBarButtonItemStyleDone target:self action:@selector(checkoutFromVenue)];
     self.navigationItem.rightBarButtonItem = item;
     
-    [SMBackEndAPI checkVenueID:[self.venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id result) {
-        self.users = result;
-        [self.tableView reloadData];
-        
-        // Poll the backend every 60 seconds
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
-        [timer fire];
-    }];
+    [self checkVenueAgain];
+    
 }
 
 - (void)checkVenueAgain
 {
     [SMBackEndAPI checkVenueID:[self.venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id result) {
-        self.users = result;
+        NSMutableDictionary *relativePersonalities = [[NSMutableDictionary alloc] init];
+        for (NSDictionary *person in result) {
+            NSString *temp = person[@"email"];
+            NSRange range = [temp rangeOfString:@"@"];
+            NSString *currentID = [temp substringToIndex:range.location];
+            if (![currentID isEqualToString:self.userID]) {
+                CGFloat currentSum = [person[@"person_sum"] floatValue];
+                CGFloat relativeSum = fabsf(currentSum - self.sum);
+                [relativePersonalities setObject:@(relativeSum) forKey:person[@"name"]];
+            }
+        }
+        
+        NSArray *sorted = [[relativePersonalities allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [[relativePersonalities objectForKey:obj2] compare:[relativePersonalities objectForKey:obj1]];
+        }];
+        
+        for (NSString *key in sorted) {
+            NSLog(@"key: %@, value: %@", key, relativePersonalities[key]);
+        }
+        
+        self.users = sorted;
         [self.tableView reloadData];
+        if (!self.check) {
+            self.check = YES;
+            // Poll the backend every 60 seconds
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
+            [timer fire];
+        }
+        
     }];
 }
+
+/*
+    SMChatViewController *chatVC = [[SMChatViewController alloc] init];
+    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:chatVC];
+    [self presentViewController:navCtrl animated:YES completion:nil];
+    
+     */
 
 - (void)checkoutFromVenue
 {
@@ -76,10 +112,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"threadCell"];
     }
 
-    NSDictionary *user = [self.users objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", [user objectForKey:@"name"]];
+    cell.textLabel.text = self.users[indexPath.row];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *selectedUser = self.users[indexPath.row];
+    
+    
 }
 
 /*

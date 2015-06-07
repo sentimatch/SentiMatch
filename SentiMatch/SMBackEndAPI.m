@@ -48,7 +48,7 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
 }
 
 + (void)postVenueID:(NSString *)venueID
-  withCompletionHandler:(void (^)(BOOL successful))completionHandler
+  withCompletionHandler:(void (^)(BOOL successful, id responseObject))completionHandler
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@locations/checkin", baselink]]];
     [request setHTTPMethod:@"POST"];
@@ -60,10 +60,10 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
     AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     op.responseSerializer = [AFJSONResponseSerializer serializer];
     [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        completionHandler(YES);
+        completionHandler(YES, responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", [error localizedDescription]);
-        completionHandler(NO);
+        completionHandler(NO, nil);
     }];
     [op start];
 }

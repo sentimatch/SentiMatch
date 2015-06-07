@@ -26,6 +26,7 @@
 		BDCCA41A1B240B8400B690DC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCCA4191B240B8400B690DC /* CFNetwork.framework */; };
 		BDCCA41C1B240B8800B690DC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCCA41B1B240B8800B690DC /* Security.framework */; };
 		BDCCA41E1B240B8F00B690DC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDCCA41D1B240B8F00B690DC /* SystemConfiguration.framework */; };
+		BDCCA4211B24167600B690DC /* SMFirebaseShared.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA4201B24167600B690DC /* SMFirebaseShared.m */; };
 		E5B0C48A1B23A59D00158C10 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4861B23A59D00158C10 /* Fabric.framework */; };
 		E5B0C48B1B23A59D00158C10 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4871B23A59D00158C10 /* TwitterKit.framework */; };
 		E5B0C48C1B23A59D00158C10 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */; };
@@ -77,6 +78,8 @@
 		BDCCA4191B240B8400B690DC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		BDCCA41B1B240B8800B690DC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BDCCA41D1B240B8F00B690DC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		BDCCA41F1B24167600B690DC /* SMFirebaseShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMFirebaseShared.h; sourceTree = "<group>"; };
+		BDCCA4201B24167600B690DC /* SMFirebaseShared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMFirebaseShared.m; sourceTree = "<group>"; };
 		E5B0C4861B23A59D00158C10 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
 		E5B0C4871B23A59D00158C10 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
 		E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
@@ -167,6 +170,8 @@
 				BDCCA4101B23D36E00B690DC /* SMBackEndAPI.m */,
 				B8AE52201B23B6240086B55C /* FoursquareVenues.h */,
 				B8AE52211B23B6240086B55C /* FoursquareVenues.m */,
+				BDCCA41F1B24167600B690DC /* SMFirebaseShared.h */,
+				BDCCA4201B24167600B690DC /* SMFirebaseShared.m */,
 				B8AE52261B23E2090086B55C /* ChatsListViewController.h */,
 				B8AE52271B23E2090086B55C /* ChatsListViewController.m */,
 				BDCCA4121B23E9E400B690DC /* SMChatViewController.h */,
@@ -376,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8AE52221B23B6240086B55C /* FoursquareVenues.m in Sources */,
+				BDCCA4211B24167600B690DC /* SMFirebaseShared.m in Sources */,
 				BDCCA4141B23E9E400B690DC /* SMChatViewController.m in Sources */,
 				B82CC2621B236A9D00943E26 /* AppDelegate.m in Sources */,
 				B8AE52281B23E2090086B55C /* ChatsListViewController.m in Sources */,

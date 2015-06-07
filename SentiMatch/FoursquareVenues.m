@@ -148,7 +148,11 @@
     NSDictionary *venue = [self.venues objectAtIndex:self.selectedVenue.row];
     
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [SMBackEndAPI postVenueID:[venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful) {
+        [SMBackEndAPI postVenueID:[venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful, id responseObject) {
+            NSString *mySumString = responseObject[0][@"person_sum"];
+            CGFloat sum = [mySumString floatValue];
+            [[NSUserDefaults standardUserDefaults] setObject:@(sum) forKey:@"sum"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             ChatsListViewController *chats = [[ChatsListViewController alloc] init];
             chats.venue = venue;
             [self.navigationController pushViewController:chats animated:YES];
