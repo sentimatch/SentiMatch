@@ -9,11 +9,13 @@
 #import "FoursquareVenues.h"
 #import <Foursquare-API-v2/Foursquare2.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface FoursquareVenues () <UITableViewDelegate, UITableViewDataSource>
+@interface FoursquareVenues () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *venues;
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -29,9 +31,68 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
+    // Get user's location
+    self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.delegate = self;
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined ) {
+            // We never ask for authorization. Let's request it.
+            [self.locationManager requestWhenInUseAuthorization];
+        } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse ||
+                   [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways) {
+            // We have authorization. Let's update location.
+            [self.locationManager startUpdatingLocation];
+        } else {
+            // If we are here we have no pormissions.
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No athorization"
+                                                                message:@"Please, enable access to your location"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"Cancel"
+                                                      otherButtonTitles:@"Open Settings", nil];
+            [alertView show];
+        }
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView setFrame:self.view.bounds];
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+}
+
+#pragma mark - Location Manager
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
+    [self.locationManager stopUpdatingLocation];
+    [self getVenuesForLocation:newLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error {
+    NSLog(@"Location manager did fail with error %@", error);
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+        [manager startUpdatingLocation];
+    }
+}
+
+- (void) getVenuesForLocation:(CLLocation *)location
+{
     // Query Foursquare
-    [Foursquare2 venueSearchNearByLatitude:@(40.702973)
-                                 longitude:@(-73.990258)
+    [Foursquare2 venueSearchNearByLatitude:@(location.coordinate.latitude)
+                                 longitude:@(location.coordinate.longitude)
                                      query:nil
                                      limit:nil
                                     intent:intentBrowse
@@ -43,12 +104,6 @@
                                           [self.tableView reloadData];
                                       }
                                   }];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.tableView setFrame:self.view.bounds];
 }
 
 #pragma mark - Table View
