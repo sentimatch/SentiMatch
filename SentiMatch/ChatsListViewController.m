@@ -28,7 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    self.navigationItem.title = self.venue[@"name"];
+    
+    self.tableView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     self.sum = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sum"] floatValue];
     self.check = NO;
@@ -94,12 +101,12 @@
     }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
-    [SMBackEndAPI checkoutWithCompletionHandler:^(BOOL successful) {
-        
-    }];
+    [super viewDidDisappear:animated];
+    if (![[self.navigationController viewControllers] containsObject:self]) {
+        [SMBackEndAPI checkoutWithCompletionHandler:^(BOOL successful) {}];
+    }
 }
 
 - (void)checkoutFromVenue
@@ -133,9 +140,24 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"threadCell"];
     }
+    cell.backgroundColor = self.view.backgroundColor;
 
     cell.textLabel.text = self.users[indexPath.row];
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir-light" size:28.0];
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.detailTextLabel.text = [self.percentages[indexPath.row] stringValue];
+    CGFloat num = [self.percentages[indexPath.row] floatValue];
+    if (num >= 85) {
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:27/255.0 green:188.0/255.0 blue:155.0/255.0 alpha:1.0];
+    }
+    else if (num >= 33 && num < 85) {
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:242.0/255.0 green:121.0/255.0 blue:53.0/255.0 alpha:1.0];
+    }
+    else {
+     
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:246.0/255.0 green:71.0/255.0 blue:71.0/255.0 alpha:1.0];
+    }
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
     
     return cell;
 }
@@ -145,6 +167,11 @@
     NSString *selectedUser = self.userIDs[indexPath.row];
     SMChatViewController *chatVC = [[SMChatViewController alloc] initWithOtherName:selectedUser];
     [self.navigationController pushViewController:chatVC animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100.0;
 }
 
 @end
