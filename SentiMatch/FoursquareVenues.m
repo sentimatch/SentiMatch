@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *venues;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (weak, nonatomic) NSIndexPath *selectedVenue;
 
 @end
 
@@ -45,12 +46,7 @@
             [self.locationManager startUpdatingLocation];
         } else {
             // If we are here we have no pormissions.
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"No athorization"
-                                                                message:@"Please, enable access to your location"
-                                                               delegate:self
-                                                      cancelButtonTitle:@"Cancel"
-                                                      otherButtonTitles:@"Open Settings", nil];
-            [alertView show];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
         }
     }
 }
@@ -59,12 +55,6 @@
 {
     [super viewWillAppear:animated];
     [self.tableView setFrame:self.view.bounds];
-}
-
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-    }
 }
 
 #pragma mark - Location Manager
@@ -139,6 +129,25 @@
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    self.selectedVenue = indexPath;
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Check in" message:@"Do you want to check in to this venue?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
+    
+    NSDictionary *venue = [self.venues objectAtIndex:self.selectedVenue.row];
+    
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        
+    }
 }
 
 @end
