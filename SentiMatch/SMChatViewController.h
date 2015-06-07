@@ -12,4 +12,6 @@
 
 @interface SMChatViewController : JSQMessagesViewController <JSQMessagesCollectionViewDataSource>
 
+- (instancetype)initWithOtherName:(NSString *)otherName;
+
 @end

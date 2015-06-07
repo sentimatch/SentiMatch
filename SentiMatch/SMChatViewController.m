@@ -23,6 +23,15 @@
 
 @implementation SMChatViewController
 
+- (instancetype)initWithOtherName:(NSString *)otherName
+{
+    self = [super init];
+    if (self) {
+        _otherName = otherName;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -34,7 +43,6 @@
     self.incomingBubble = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
     
     self.userName = @"Ismail";
-    self.otherName = @"Pranav";
     
     self.messages = [[NSMutableArray alloc] init];
     
