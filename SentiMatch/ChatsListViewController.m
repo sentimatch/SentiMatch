@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) NSArray *users;
 @property (strong, nonatomic) NSArray *userIDs;
+@property (strong, nonatomic) NSArray *percentages;
 @property (strong, nonatomic) NSString *userID;
 @property (nonatomic) CGFloat sum;
 @property (nonatomic) BOOL check;
@@ -31,6 +32,7 @@
     self.users = @[];
     
     self.userID = [SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"];
+    
     
     // Check out from venue
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Leave" style:UIBarButtonItemStyleDone target:self action:@selector(checkoutFromVenue)];
@@ -59,13 +61,20 @@
         NSArray *sorted = [[relativePersonalities allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             return [[relativePersonalities objectForKey:obj1] compare:[relativePersonalities objectForKey:obj2]];
         }];
+        
         NSArray *sorted2 = [[relativePersonalitiesUserID allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             return [[relativePersonalitiesUserID objectForKey:obj1] compare:[relativePersonalitiesUserID objectForKey:obj2]];
         }];
         
+        NSMutableArray *percentageStuff = [[NSMutableArray alloc] init];
         for (NSString *key in sorted) {
+            [relativePersonalities[key] floatValue];
             NSLog(@"key: %@, value: %@", key, relativePersonalities[key]);
+            CGFloat numerator = [relativePersonalities[key] floatValue];
+            CGFloat val = floorf(100 - ((numerator/self.sum) * 100));
+            [percentageStuff addObject:@(val)];
         }
+        self.percentages = [NSArray arrayWithArray:percentageStuff];
         
         self.users = sorted;
         self.userIDs = sorted2;
@@ -116,10 +125,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadCell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"threadCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"threadCell"];
     }
 
     cell.textLabel.text = self.users[indexPath.row];
+    cell.detailTextLabel.text = [self.percentages[indexPath.row] stringValue];
     
     return cell;
 }
