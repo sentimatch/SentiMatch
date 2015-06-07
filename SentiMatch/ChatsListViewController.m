@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
     self.sum = [[[NSUserDefaults standardUserDefaults] objectForKey:@"sum"] floatValue];
     self.check = NO;
     self.users = @[];
@@ -88,13 +90,6 @@
         
     }];
 }
-
-/*
-    SMChatViewController *chatVC = [[SMChatViewController alloc] init];
-    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:chatVC];
-    [self presentViewController:navCtrl animated:YES completion:nil];
-    
-     */
 
 - (void)checkoutFromVenue
 {

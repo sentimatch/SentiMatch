@@ -55,8 +55,10 @@
          NSLog(@"error: %@", [error localizedDescription]);
     }
     }];
-    logInButton.center = self.view.center;
+    logInButton.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height * 0.9);
     [self.view addSubview:logInButton];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
     
     
 }

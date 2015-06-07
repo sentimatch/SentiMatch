@@ -10,7 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <SSKeychain/SSKeychain.h>
 
-static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
+static NSString * const baselink = @"http://sentimatch.herokuapp.com/api/v1/";
 
 @implementation SMBackEndAPI
 

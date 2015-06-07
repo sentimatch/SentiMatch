@@ -12,13 +12,16 @@
 #import <CoreLocation/CoreLocation.h>
 #import "SMBackEndAPI.h"
 #import "ChatsListViewController.h"
+#import <MapKit/MapKit.h>
 
-@interface FoursquareVenues () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@interface FoursquareVenues () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, MKMapViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *venues;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (weak, nonatomic) NSIndexPath *selectedVenue;
+@property (strong, nonatomic) MKMapView *mapView;
+@property (strong ,nonatomic) UIButton *listResultsButton;
 
 @end
 
@@ -27,9 +30,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    // Map view setup
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.95)];
+    self.mapView.delegate = self;
+    self.mapView.showsUserLocation = YES;
+    self.mapView.userInteractionEnabled = YES;
+    [self.view addSubview:self.mapView];
+    
+    self.listResultsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.listResultsButton addTarget:self
+               action:@selector(animateView:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [self.listResultsButton setTitle:@"List Results" forState:UIControlStateNormal];
+    [self.listResultsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.listResultsButton.frame = CGRectMake(0, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.height*0.05);
+    self.listResultsButton.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
+    [self.view addSubview:self.listResultsButton];
+    
     // Setup table view
     self.venues = [[NSMutableArray alloc] init];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height * 0.95, self.view.frame.size.width, self.view.frame.size.height*0.05) style:UITableViewStylePlain];
+    [self.tableView setHidden:YES];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -56,7 +79,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView setFrame:self.view.bounds];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)animateView:(id)sender
+{
+    [self.tableView setHidden:NO];
+    [UIView animateWithDuration:0.75 delay:0.0 usingSpringWithDamping:0.45 initialSpringVelocity:0.0 options:0 animations:^{
+        self.tableView.frame = CGRectMake(0, self.view.frame.size.height*0.3, self.view.frame.size.width, self.view.frame.size.height*0.7);
+        self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.3);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma mark - Location Manager
@@ -92,6 +126,7 @@
                                 categoryId:nil
                                   callback:^(BOOL success, id result){
                                       if (success) {
+                                          NSLog(@"%@", self.venues);
                                           self.venues = [result valueForKeyPath:@"response.venues"];
                                           [self.tableView reloadData];
                                       }
@@ -128,7 +163,9 @@
     cell.detailTextLabel.text = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"name"];
     NSString *imgURL = [NSString stringWithFormat:@"%@bg_32%@", [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"prefix"],
                         [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"suffix"]];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL]];
+    NSLog(@"%@", imgURL);
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    }];
     
     return cell;
 }
@@ -158,6 +195,11 @@
             [self.navigationController pushViewController:chats animated:YES];
         }];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100.0;
 }
 
 @end
