@@ -11,8 +11,7 @@
 
 @interface SMFirebaseShared : NSObject
 
-@property (strong, nonatomic) Firebase *rootRef;
-
 + (id)sharedFirebase;
++(Firebase *)getRootRef;
 
 @end

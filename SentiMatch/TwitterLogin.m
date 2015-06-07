@@ -18,6 +18,7 @@
 @interface TwitterLogin()
 
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) UIImageView *imageView;
 
 @end
 
@@ -60,7 +61,28 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
     
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height*0.2, self.view.frame.size.width, self.view.frame.size.height*0.2)];
+    self.imageView.image = [UIImage imageNamed:@"devil"];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.imageView];
     
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:4 target:self selector:@selector(rotateView) userInfo:nil repeats:YES];
+    [timer fire];
+}
+
+- (void)rotateView
+{
+    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    animation.fromValue = @(0);
+    animation.toValue = @(M_PI);
+    animation.repeatCount = 0;
+    animation.duration = 1.0;
+     
+    [self.imageView.layer addAnimation:animation forKey:@"rotation"];
+     
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m34 = 1.0 / 500.0;
+    self.imageView.layer.transform = transform;
 }
 
 - (void)viewDidAppear:(BOOL)animated

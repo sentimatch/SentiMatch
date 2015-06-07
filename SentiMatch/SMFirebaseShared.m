@@ -14,7 +14,6 @@
 {
     self = [super init];
     if (self) {
-        _rootRef = [[Firebase alloc] initWithUrl:@"https://sentimatch.firebaseIO.com"];
     }
     return self;
 }
@@ -26,6 +25,11 @@
         sharedFirebase = [[self alloc] init];
     });
     return sharedFirebase;
+}
+
++(Firebase *)getRootRef
+{
+    return [[Firebase alloc] initWithUrl:@"https://sentimatch.firebaseIO.com"];
 }
 
 @end
