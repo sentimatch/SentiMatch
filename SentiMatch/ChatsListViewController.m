@@ -75,7 +75,7 @@
             NSString *currentID = [temp substringToIndex:range.location];
             if (![currentID isEqualToString:self.userID]) {
                 CGFloat currentSum = [person[@"person_sum"] floatValue];
-                CGFloat relativeSum = fabsf(currentSum - self.sum);
+                CGFloat relativeSum = fabs(currentSum - self.sum);
                 [relativePersonalities setObject:@(relativeSum) forKey:person[@"name"]];
                 [relativePersonalitiesUserID setObject:@(relativeSum) forKey:currentID];
             }
