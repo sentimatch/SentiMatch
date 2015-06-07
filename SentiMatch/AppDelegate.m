@@ -30,6 +30,8 @@
                                       secret:@"5G4WODG2PDX4RYXYDREFM30OWDGRSITKTHIDISSPB1NIZJS0"
                                  callbackURL:@"sentimatch://foursquare"];
     
+    self.window.backgroundColor = [UIColor whiteColor];
+    
     return YES;
 }
 

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) NSIndexPath *selectedVenue;
 @property (strong, nonatomic) MKMapView *mapView;
 @property (strong ,nonatomic) UIButton *listResultsButton;
+@property (nonatomic, assign) BOOL resultsShowing;
 
 @end
 
@@ -38,16 +39,21 @@
     self.mapView.showsUserLocation = YES;
     self.mapView.userInteractionEnabled = YES;
     [self.view addSubview:self.mapView];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedMap)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.mapView addGestureRecognizer:tapGesture];
     
     self.listResultsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [self.listResultsButton addTarget:self
                action:@selector(animateView:)
      forControlEvents:UIControlEventTouchUpInside];
-    [self.listResultsButton setTitle:@"List Results" forState:UIControlStateNormal];
+    [self.listResultsButton setTitle:@"Find a Place" forState:UIControlStateNormal];
     [self.listResultsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.listResultsButton.frame = CGRectMake(0, self.view.frame.size.height*0.95, self.view.frame.size.width, self.view.frame.size.height*0.05);
-    self.listResultsButton.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
+    [self.listResultsButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20.f]];
+    self.listResultsButton.frame = CGRectMake(0, self.view.frame.size.height*0.93, self.view.frame.size.width, self.view.frame.size.height*0.07);
+    self.listResultsButton.backgroundColor = [UIColor colorWithRed:229.0/255.0 green:76.0/255.0 blue:16.0/255.0 alpha:1.0];
     [self.view addSubview:self.listResultsButton];
+    self.resultsShowing = NO;
     
     // Setup table view
     self.venues = [[NSMutableArray alloc] init];
@@ -84,22 +90,61 @@
 
 - (void)animateView:(id)sender
 {
-    [self.tableView setHidden:NO];
-    [UIView animateWithDuration:0.75 delay:0.0 usingSpringWithDamping:0.45 initialSpringVelocity:0.0 options:0 animations:^{
-        self.tableView.frame = CGRectMake(0, self.view.frame.size.height*0.3, self.view.frame.size.width, self.view.frame.size.height*0.7);
-        self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.3);
-    } completion:^(BOOL finished) {
+    // Show results table
+    if (!self.resultsShowing) {
+        [self.tableView setHidden:NO];
+        [UIView animateWithDuration:0.75 delay:0.0 usingSpringWithDamping:0.65 initialSpringVelocity:0.0 options:0 animations:^{
+            self.tableView.frame = CGRectMake(0, self.view.frame.size.height*0.3, self.view.frame.size.width, self.view.frame.size.height*0.7);
+            self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height*0.3);
+            [self.listResultsButton setAlpha:0.f];
+        } completion:^(BOOL finished) {
+            self.resultsShowing = YES;
+            [self setupMap];
+        }];
         
-    }];
+    // Hide results table
+    } else {
+        [UIView animateWithDuration:0.75 delay:0.0 usingSpringWithDamping:0.8 initialSpringVelocity:0.0 options:0 animations:^{
+            self.tableView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+            self.mapView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+            [self.listResultsButton setAlpha:1.f];
+        } completion:^(BOOL finished) {
+            [self.tableView setHidden:YES];
+            self.resultsShowing = NO;
+            [self setupMap];
+        }];
+    }
 }
 
 #pragma mark - Location Manager
+
+- (void)setupMap
+{
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta = 0.003;
+    span.longitudeDelta = 0.003;
+    CLLocationCoordinate2D location;
+    location.latitude = self.locationManager.location.coordinate.latitude;
+    location.longitude = self.locationManager.location.coordinate.longitude;
+    region.span = span;
+    region.center = location;
+    [self.mapView setRegion:region animated:YES];
+}
+
+- (void)tappedMap
+{
+    if (self.resultsShowing) {
+        [self animateView:self];
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
     [self.locationManager stopUpdatingLocation];
     [self getVenuesForLocation:newLocation];
+    [self setupMap];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -126,7 +171,6 @@
                                 categoryId:nil
                                   callback:^(BOOL success, id result){
                                       if (success) {
-                                          NSLog(@"%@", self.venues);
                                           self.venues = [result valueForKeyPath:@"response.venues"];
                                           [self.tableView reloadData];
                                       }
@@ -137,7 +181,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 20.f;
+    return 30.f;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Venues";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -163,9 +212,7 @@
     cell.detailTextLabel.text = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"name"];
     NSString *imgURL = [NSString stringWithFormat:@"%@bg_32%@", [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"prefix"],
                         [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"suffix"]];
-    NSLog(@"%@", imgURL);
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-    }];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] placeholderImage:nil options:SDWebImageRefreshCached];
     
     return cell;
 }
