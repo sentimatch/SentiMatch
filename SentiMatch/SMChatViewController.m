@@ -8,6 +8,7 @@
 
 #import "SMChatViewController.h"
 #import <Firebase/Firebase.h>
+#import <SSKeychain/SSKeychain.h>
 
 @interface SMChatViewController()
 
@@ -42,7 +43,7 @@
     self.outgoingBubble = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
     self.incomingBubble = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
     
-    self.userName = @"Ismail";
+    self.userName = [SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"];
     
     self.messages = [[NSMutableArray alloc] init];
     
