@@ -14,4 +14,6 @@
 
 - (instancetype)initWithOtherName:(NSString *)otherName;
 
+@property (weak, nonatomic) NSString *receiveName;
+
 @end

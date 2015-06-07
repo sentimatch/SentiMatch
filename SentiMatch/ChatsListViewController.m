@@ -166,6 +166,7 @@
 {
     NSString *selectedUser = self.userIDs[indexPath.row];
     SMChatViewController *chatVC = [[SMChatViewController alloc] initWithOtherName:selectedUser];
+    chatVC.receiveName = self.users[indexPath.row];
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
