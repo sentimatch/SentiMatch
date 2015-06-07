@@ -27,6 +27,9 @@
 {
     [super viewDidLoad];
     
+    [SSKeychain deletePasswordForService:@"twitter_login" account:@"twitter_account"];
+    [SSKeychain deletePasswordForService:@"uauth_token" account:@"uauth_token"];
+    
     TWTRLogInButton* logInButton =  [TWTRLogInButton
                                      buttonWithLogInCompletion:
                                      ^(TWTRSession* session, NSError* error) {
