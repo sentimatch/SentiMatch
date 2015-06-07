@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -34,6 +35,13 @@
     TWTRLogInButton* logInButton =  [TWTRLogInButton
                                      buttonWithLogInCompletion:
                                      ^(TWTRSession* session, NSError* error) {
+                                         
+     _activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [_activityIndicator startAnimating];
+    _activityIndicator.center = self.view.center;
+    _activityIndicator.alpha = 1;
+    [self.view addSubview:_activityIndicator];
+                                        
     if (session) {
         // Store in SSKeychain if not already there
         if (![SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"]) {
@@ -48,6 +56,8 @@
         
         // Handles posting personality and twitter details to backend
         [self postPersonalityWithCompletionHandler:^{
+            _activityIndicator.alpha = 0;
+            [_activityIndicator stopAnimating];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
             [self presentViewController:nav animated:YES completion:nil];
         }];

@@ -36,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+   self.collectionView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:222.0/255.0 blue:161.0/255.0 alpha:1.0];
     
     self.rootRef = [[Firebase alloc] initWithUrl:@"https://sentimatch.firebaseIO.com"];
     
@@ -48,7 +49,6 @@
     self.messages = [[NSMutableArray alloc] init];
     
     [self.collectionView reloadData];
-    self.collectionView.backgroundColor = [UIColor blackColor];
     self.senderDisplayName = self.userName;
     self.senderId = self.userName;
     
