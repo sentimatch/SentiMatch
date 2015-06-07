@@ -10,6 +10,7 @@
 #import "SMBackEndAPI.h"
 #import <SSKeychain/SSKeychain.h>
 #import "SMChatViewController.h"
+#import "SMBackEndAPI.h"
 
 @interface ChatsListViewController ()
 
@@ -34,11 +35,6 @@
     self.users = @[];
     
     self.userID = [SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"];
-    
-    
-    // Check out from venue
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Leave" style:UIBarButtonItemStyleDone target:self action:@selector(checkoutFromVenue)];
-    self.navigationItem.rightBarButtonItem = item;
     
     [self checkVenueAgain];
 }
@@ -91,9 +87,17 @@
         if (!self.check) {
             self.check = YES;
             // Poll the backend every 60 seconds
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
             [timer fire];
         }
+        
+    }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [SMBackEndAPI checkoutWithCompletionHandler:^(BOOL successful) {
         
     }];
 }

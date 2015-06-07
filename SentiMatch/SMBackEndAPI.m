@@ -68,6 +68,25 @@ static NSString * const baselink = @"http://sentimatch.herokuapp.com/api/v1/";
     [op start];
 }
 
++ (void)checkoutWithCompletionHandler:(void (^)(BOOL successful))completionHandler
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@locations/checkout", baselink]]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    NSDictionary *body = @{@"token" : [SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]};
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:body options:0 error:nil]];
+    
+    AFHTTPRequestOperation *op = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    op.responseSerializer = [AFJSONResponseSerializer serializer];
+    [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        completionHandler(YES);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+        completionHandler(NO);
+    }];
+    [op start];
+}
+
 + (void)checkVenueID:(NSString *)venueID
 withCompletionHandler:(void (^)(BOOL successful, id result))completionHandler
 {

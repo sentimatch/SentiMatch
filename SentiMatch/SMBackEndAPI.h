@@ -20,4 +20,6 @@ withCompletionHandler:(void (^)(BOOL successful, id responseObject))completionHa
 
 + (void)checkVenueID:(NSString *)venueID withCompletionHandler:(void (^)(BOOL successful, id result))completionHandler;
 
++ (void)checkoutWithCompletionHandler:(void (^)(BOOL successful))completionHandler;
+
 @end
