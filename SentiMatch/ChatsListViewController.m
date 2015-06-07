@@ -37,7 +37,14 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [self checkVenueAgain];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTable) userInfo:nil repeats:YES];
+    [timer fire];
     
+}
+
+- (void)updateTable
+{
+    [self.tableView reloadData];
 }
 
 - (void)checkVenueAgain
