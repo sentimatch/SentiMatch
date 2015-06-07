@@ -10,7 +10,6 @@
 #import "SMBackEndAPI.h"
 #import <SSKeychain/SSKeychain.h>
 #import "SMChatViewController.h"
-#import <Firebase/Firebase.h>
 
 @interface ChatsListViewController ()
 
@@ -42,19 +41,6 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [self checkVenueAgain];
-    
-    Firebase *rootRef = [[Firebase alloc] initWithUrl:@"https://sentimatch.firebaseIO.com"];
-    
-    // Receiving messages
-    [rootRef observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSDictionary *dict = snapshot.value;
-            for (NSString *key in dict) {
-            if (![key isEqualToString:self.userID]) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Chat" message:@"Someone wants to chat with you!" delegate:self cancelButtonTitle:@"Nope" otherButtonTitles:@"Okay!", nil];
-                [alertView show];
-            }
-        }
-    }];
 }
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
