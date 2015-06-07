@@ -6,6 +6,7 @@ target 'SentiMatch' do
 	pod 'Foursquare-API-v2', '1.4.8'
 	pod 'SSKeychain', '1.2'
 	pod 'SDWebImage', '3.7.2'
+    pod 'JSQMessagesViewController'
 end
 
 target 'SentiMatchTests' do

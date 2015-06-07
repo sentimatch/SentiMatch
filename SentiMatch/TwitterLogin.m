@@ -13,6 +13,7 @@
 #import "IJMPersonalityAPI.h"
 #import "SMBackEndAPI.h"
 #import "FoursquareVenues.h"
+#import "SMChatViewController.h"
 
 @interface TwitterLogin()
 
@@ -50,6 +51,18 @@
     }];
     logInButton.center = self.view.center;
     [self.view addSubview:logInButton];
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    SMChatViewController *chatVC = [[SMChatViewController alloc] init];
+    [self presentViewController:chatVC animated:YES completion:nil];
+    // Uncomment this to present the foursquare venues
+    // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
+    // [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)postPersonality
@@ -70,14 +83,5 @@
         }];
     }];
 }
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    // Uncomment this to present the foursquare venues
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
-//    [self presentViewController:nav animated:YES completion:nil];
-}
-
-
 
 @end
