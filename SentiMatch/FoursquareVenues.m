@@ -122,8 +122,8 @@
 {
     MKCoordinateRegion region;
     MKCoordinateSpan span;
-    span.latitudeDelta = 0.003;
-    span.longitudeDelta = 0.003;
+    span.latitudeDelta = 0;
+    span.longitudeDelta = 0;
     CLLocationCoordinate2D location;
     location.latitude = self.locationManager.location.coordinate.latitude;
     location.longitude = self.locationManager.location.coordinate.longitude;
@@ -172,9 +172,25 @@
                                   callback:^(BOOL success, id result){
                                       if (success) {
                                           self.venues = [result valueForKeyPath:@"response.venues"];
+                                          [self addVenuePins];
                                           [self.tableView reloadData];
                                       }
                                   }];
+}
+
+- (void)addVenuePins
+{
+    for (NSDictionary *venue in self.venues) {
+        // Place a single pin
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        CLLocationCoordinate2D coordinate;
+        coordinate.latitude = (CLLocationDegrees)[[[venue objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+        coordinate.longitude = (CLLocationDegrees)[[[venue objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+        [annotation setCoordinate:coordinate];
+        [annotation setTitle:[venue objectForKey:@"name"]];
+        [annotation setSubtitle:[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"name"]];
+        [self.mapView addAnnotation:annotation];
+    }
 }
 
 #pragma mark - Table View
@@ -212,7 +228,9 @@
     cell.detailTextLabel.text = [[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"name"];
     NSString *imgURL = [NSString stringWithFormat:@"%@bg_32%@", [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"prefix"],
                         [[[[venue objectForKey:@"categories"] objectAtIndex:0] objectForKey:@"icon"] objectForKey:@"suffix"]];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] placeholderImage:nil options:SDWebImageRefreshCached];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:imgURL] placeholderImage:nil options:SDWebImageHighPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        cell.imageView.image = image;
+    }];
     
     return cell;
 }
