@@ -13,7 +13,7 @@
 + (void)postPersonality:(NSDictionary *)personality
   withCompletionHandler:(void (^)(BOOL successful))completionHandler;
 
-+ (void)postEventID:(NSString *)eventID
++ (void)postVenueID:(NSString *)venueID
 withCompletionHandler:(void (^)(BOOL successful))completionHandler;
 
 @end

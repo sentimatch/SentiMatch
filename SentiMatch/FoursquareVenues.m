@@ -10,6 +10,8 @@
 #import <Foursquare-API-v2/Foursquare2.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <CoreLocation/CoreLocation.h>
+#import "SMBackEndAPI.h"
+#import "ChatsListViewController.h"
 
 @interface FoursquareVenues () <UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
@@ -146,7 +148,11 @@
     NSDictionary *venue = [self.venues objectAtIndex:self.selectedVenue.row];
     
     if (buttonIndex != alertView.cancelButtonIndex) {
-        
+        [SMBackEndAPI postVenueID:[venue objectForKey:@"id"] withCompletionHandler:^(BOOL successful) {
+            ChatsListViewController *chats = [[ChatsListViewController alloc] init];
+            chats.venue = venue;
+            [self.navigationController pushViewController:chats animated:YES];
+        }];
     }
 }
 

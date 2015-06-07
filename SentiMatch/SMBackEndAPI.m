@@ -37,7 +37,7 @@ static NSString * const baselink = @"http://3cafb19a.ngrok.com/api/v1/";
 + (void)postVenueID:(NSString *)venueID
   withCompletionHandler:(void (^)(BOOL successful))completionHandler
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@checkin", baselink]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@locations/checkin", baselink]]];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSDictionary *body = @{@"venue_id" : venueID};
