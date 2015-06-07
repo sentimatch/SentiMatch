@@ -11,7 +11,9 @@
 @interface SMBackEndAPI : NSObject
 
 + (void)postPersonality:(NSDictionary *)personality
-  withCompletionHandler:(void (^)(BOOL successful))completionHandler;
+                 userID:(NSString *)userID
+                   name:(NSString *)name
+  withCompletionHandler:(void (^)(BOOL successful, NSString *UAuthToken))completionHandler;
 
 + (void)postVenueID:(NSString *)venueID
 withCompletionHandler:(void (^)(BOOL successful))completionHandler;

@@ -15,6 +15,8 @@
 
 @interface TwitterLogin()
 
+@property (strong, nonatomic) NSString *name;
+
 @end
 
 @implementation TwitterLogin
@@ -31,9 +33,11 @@
         if (![SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"]) {
             [SSKeychain setPassword:[session userID] forService:@"twitter_login" account:@"twitter_account"];
             NSLog(@"JUST signed in as %@", [session userName]);
+            self.name = [session userName];
         }
         else {
             NSLog(@"signed in as %@", [session userName]);
+            self.name = [session userName];
         }
         
         // Handles posting personality and twitter details to backend
@@ -53,10 +57,15 @@
         NSString *tweets = [SMTwitterAPI tweetsStringFromJSON:response];
         [IJMPersonalityAPI getPersonalityAssessmentWithText:tweets withCompletionHandler:^(NSDictionary *response) {
             NSDictionary *personality = [IJMPersonalityAPI personalityWithJSON:response];
-            [SMBackEndAPI postPersonality:personality withCompletionHandler:^(BOOL successful) {
-                
+            [SMBackEndAPI postPersonality:personality userID:[SSKeychain passwordForService:@"twitter_login" account:@"twitter_account"] name:self.name withCompletionHandler:^(BOOL successful, NSString *UAuthToken) {
+                if (![SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]) {
+                    [SSKeychain setPassword:UAuthToken forService:@"uauth_token" account:@"uauth_token"];
+                    NSLog(@"Registering UAuth token: %@", UAuthToken);
+                }
+                else {
+                    NSLog(@"Already registered UAuth token: %@", [SSKeychain passwordForService:@"uauth_token" account:@"uauth_token"]);
+                }
             }];
-            NSLog(@"%@", personality);
         }];
     }];
 }
