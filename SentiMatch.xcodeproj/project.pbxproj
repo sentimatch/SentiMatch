@@ -14,9 +14,11 @@
 		B82CC26A1B236A9D00943E26 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B82CC2691B236A9D00943E26 /* Images.xcassets */; };
 		B82CC26D1B236A9D00943E26 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B82CC26B1B236A9D00943E26 /* LaunchScreen.xib */; };
 		B82CC2791B236A9D00943E26 /* SentiMatchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B82CC2781B236A9D00943E26 /* SentiMatchTests.m */; };
-		B82CC2901B23A4A100943E26 /* TwitterLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */; };
 		B8AE52221B23B6240086B55C /* FoursquareVenues.m in Sources */ = {isa = PBXBuildFile; fileRef = B8AE52211B23B6240086B55C /* FoursquareVenues.m */; };
 		BDCCA4031B23A7A700B690DC /* IJMPersonalityAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */; };
+		BDCCA40B1B23C57B00B690DC /* TwitterLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA40A1B23C57B00B690DC /* TwitterLogin.m */; };
+		BDCCA40E1B23C78E00B690DC /* SMTwitterAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA40D1B23C78E00B690DC /* SMTwitterAPI.m */; };
+		BDCCA4111B23D36E00B690DC /* SMBackEndAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = BDCCA4101B23D36E00B690DC /* SMBackEndAPI.m */; };
 		E5B0C48A1B23A59D00158C10 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4861B23A59D00158C10 /* Fabric.framework */; };
 		E5B0C48B1B23A59D00158C10 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B0C4871B23A59D00158C10 /* TwitterKit.framework */; };
 		E5B0C48C1B23A59D00158C10 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */; };
@@ -49,11 +51,16 @@
 		B82CC2771B236A9D00943E26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B82CC2781B236A9D00943E26 /* SentiMatchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SentiMatchTests.m; sourceTree = "<group>"; };
 		B82CC28E1B23A46400943E26 /* SentiMatch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SentiMatch-Bridging-Header.h"; sourceTree = "<group>"; };
-		B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterLogin.swift; sourceTree = "<group>"; };
 		B8AE52201B23B6240086B55C /* FoursquareVenues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoursquareVenues.h; sourceTree = "<group>"; };
 		B8AE52211B23B6240086B55C /* FoursquareVenues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoursquareVenues.m; sourceTree = "<group>"; };
 		BDCCA4011B23A7A700B690DC /* IJMPersonalityAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJMPersonalityAPI.h; sourceTree = "<group>"; };
 		BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJMPersonalityAPI.m; sourceTree = "<group>"; };
+		BDCCA4091B23C57B00B690DC /* TwitterLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterLogin.h; sourceTree = "<group>"; };
+		BDCCA40A1B23C57B00B690DC /* TwitterLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterLogin.m; sourceTree = "<group>"; };
+		BDCCA40C1B23C78E00B690DC /* SMTwitterAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTwitterAPI.h; sourceTree = "<group>"; };
+		BDCCA40D1B23C78E00B690DC /* SMTwitterAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTwitterAPI.m; sourceTree = "<group>"; };
+		BDCCA40F1B23D36E00B690DC /* SMBackEndAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMBackEndAPI.h; sourceTree = "<group>"; };
+		BDCCA4101B23D36E00B690DC /* SMBackEndAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMBackEndAPI.m; sourceTree = "<group>"; };
 		E5B0C4861B23A59D00158C10 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
 		E5B0C4871B23A59D00158C10 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = SOURCE_ROOT; };
 		E5B0C4881B23A59D00158C10 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = SOURCE_ROOT; };
@@ -124,9 +131,14 @@
 			children = (
 				B82CC2601B236A9D00943E26 /* AppDelegate.h */,
 				B82CC2611B236A9D00943E26 /* AppDelegate.m */,
-				B82CC28F1B23A4A100943E26 /* TwitterLogin.swift */,
+				BDCCA4091B23C57B00B690DC /* TwitterLogin.h */,
+				BDCCA40A1B23C57B00B690DC /* TwitterLogin.m */,
+				BDCCA40C1B23C78E00B690DC /* SMTwitterAPI.h */,
+				BDCCA40D1B23C78E00B690DC /* SMTwitterAPI.m */,
 				BDCCA4011B23A7A700B690DC /* IJMPersonalityAPI.h */,
 				BDCCA4021B23A7A700B690DC /* IJMPersonalityAPI.m */,
+				BDCCA40F1B23D36E00B690DC /* SMBackEndAPI.h */,
+				BDCCA4101B23D36E00B690DC /* SMBackEndAPI.m */,
 				B8AE52201B23B6240086B55C /* FoursquareVenues.h */,
 				B8AE52211B23B6240086B55C /* FoursquareVenues.m */,
 				B82CC2691B236A9D00943E26 /* Images.xcassets */,
@@ -333,11 +345,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B82CC2901B23A4A100943E26 /* TwitterLogin.swift in Sources */,
 				B8AE52221B23B6240086B55C /* FoursquareVenues.m in Sources */,
 				B82CC2621B236A9D00943E26 /* AppDelegate.m in Sources */,
+				BDCCA40B1B23C57B00B690DC /* TwitterLogin.m in Sources */,
 				BDCCA4031B23A7A700B690DC /* IJMPersonalityAPI.m in Sources */,
+				BDCCA40E1B23C78E00B690DC /* SMTwitterAPI.m in Sources */,
 				B82CC25F1B236A9D00943E26 /* main.m in Sources */,
+				BDCCA4111B23D36E00B690DC /* SMBackEndAPI.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
