@@ -59,7 +59,8 @@
 {
     [super viewDidAppear:animated];
     SMChatViewController *chatVC = [[SMChatViewController alloc] init];
-    [self presentViewController:chatVC animated:YES completion:nil];
+    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:chatVC];
+    [self presentViewController:navCtrl animated:YES completion:nil];
     // Uncomment this to present the foursquare venues
     // UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[FoursquareVenues alloc] init]];
     // [self presentViewController:nav animated:YES completion:nil];

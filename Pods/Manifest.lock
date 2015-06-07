@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Firebase (2.3.1)
   - Foursquare-API-v2 (1.4.8)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -31,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.5.4)
+  - Firebase
   - Foursquare-API-v2 (= 1.4.8)
   - JSQMessagesViewController
   - SDWebImage (= 3.7.2)
@@ -38,6 +40,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  Firebase: 462795adf92029ddb97777660627f5dd4fd59876
   Foursquare-API-v2: dedba546a2048dc66dc444e9784fc5f9c27f81d9
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d

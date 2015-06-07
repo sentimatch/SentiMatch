@@ -7,6 +7,7 @@ target 'SentiMatch' do
 	pod 'SSKeychain', '1.2'
 	pod 'SDWebImage', '3.7.2'
     pod 'JSQMessagesViewController'
+    pod 'Firebase'
 end
 
 target 'SentiMatchTests' do

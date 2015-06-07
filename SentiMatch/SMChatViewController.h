@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <JSQMessagesViewController/JSQMessages.h>
-#import <JSQMessagesViewController/JSQMessagesViewController.h>
+#import <JSQMessagesBubbleImageFactory.h>
 
 @interface SMChatViewController : JSQMessagesViewController <JSQMessagesCollectionViewDataSource>
 
