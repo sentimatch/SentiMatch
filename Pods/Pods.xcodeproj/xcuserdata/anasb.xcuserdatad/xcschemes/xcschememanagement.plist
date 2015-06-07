@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-SentiMatch-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SentiMatch-SSKeychain.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>046E3E33A77C32EAA891D359</key>
+		<key>59CCD63DB936FE3721CA17EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3AA579D55BCFE71BCE7FCA5B</key>
+		<key>B0DC30253DD516DE9A010EB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>811AFC84AA917CFC0C036519</key>
+		<key>B22635AAD630E8B6E914FD41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F39F5D00AE969119DA4CBD55</key>
+		<key>D8C7BB22AD04B94C059F2EAD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DD57ED7B805871A7A22FEF44</key>
 		<dict>
 			<key>primary</key>
 			<true/>
