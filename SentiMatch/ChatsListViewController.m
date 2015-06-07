@@ -37,14 +37,6 @@
     self.navigationItem.rightBarButtonItem = item;
     
     [self checkVenueAgain];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTable) userInfo:nil repeats:YES];
-    [timer fire];
-    
-}
-
-- (void)updateTable
-{
-    [self.tableView reloadData];
 }
 
 - (void)checkVenueAgain
@@ -81,7 +73,7 @@
         if (!self.check) {
             self.check = YES;
             // Poll the backend every 60 seconds
-            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkVenueAgain) userInfo:nil repeats:YES];
             [timer fire];
         }
         
